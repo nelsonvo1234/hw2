@@ -4,6 +4,11 @@
 #include "clothing.h"
 #include "util.h"
 
+Clothing::Clothing(const std::string category, const std::string name, double price, int qty, std::string size, std::string brand) : Product(category, name, price, qty){
+    size_ = size;
+    brand_ = brand;
+}
+
 std::set<std::string> Clothing::keywords() const{
     std::set<std::string> name = parseStringToWords(name_);
     std::set<std::string> brand = parseStringToWords(brand_);

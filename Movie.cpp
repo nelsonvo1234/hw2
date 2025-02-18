@@ -4,6 +4,11 @@
 #include "Movie.h"
 #include "util.h"
 
+Movie::Movie(const std::string category, const std::string name, double price, int qty, std::string genre, std::string rating) : Product(category, name, price, qty){
+    genre_ = genre;
+    rating_ = rating;
+}
+
 std::set<std::string> Movie::keywords() const{
     std::set<std::string> name = parseStringToWords(name_);
     std::set<std::string> genre = parseStringToWords(genre_);
