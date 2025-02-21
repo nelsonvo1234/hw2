@@ -1,4 +1,4 @@
-#include "mydatastore.h"
+#include "MyDataStore.h"
 #include "util.h"
 
 void MyDataStore::addProduct(Product* p){
@@ -15,6 +15,7 @@ void MyDataStore::addUser(User* u){
 }
 
 std::vector<Product*> MyDataStore::search(std::vector<std::string>& terms, int type){
+    
     std::set<Product*> result;
     std::vector<std::string>::iterator it;
     for(it = terms.begin(); it != terms.end(); it++){
@@ -65,10 +66,12 @@ void MyDataStore::viewCart(std::string username){
         std::cout << "Invalid username" << std::endl;
         return;
     }
-    std::queue<Product*> cart = cartMap[u];
-    for(int i = 0; i < cart.size(); i++){
-        std::cout << i << ": " << cart.front() << std::endl;
-        cart.pop();
+    for(int i = 0; i < cartMap[u].size(); i++){
+        Product* cartTop = cartMap[u].front();
+        std::cout << "Hit   " << i+1 << std::endl;
+        std::cout /*<< "Item "<< i+1 << ": "*/ << cartTop->displayString() << std::endl;
+        cartMap[u].pop();
+        cartMap[u].push(cartTop);
     }
 }
 
@@ -80,7 +83,7 @@ void MyDataStore::buyCart(std::string username){
     }
     std::queue<Product*>* cart = &cartMap[u];
     int cartSize = cart->size();
-    for(int i = 0; i < cart->size(); i++){
+    for(int i = 0; i < cartSize; i++){
         Product* cur = cart->front();
         cart->pop();
         if(cur->getQty() > 0 && u->getBalance() >= cur->getPrice()){
@@ -100,4 +103,13 @@ User* MyDataStore::nameUser(std::string username){
         }
     }
     return nullptr;
+}
+
+MyDataStore::~MyDataStore(){
+  for(std::set<User*>::iterator it = users.begin(); it != users.end(); it++){
+    delete *it;
+  }
+  for(std::set<Product*>::iterator it = products.begin(); it != products.end(); it++){
+    delete *it;
+  }
 }

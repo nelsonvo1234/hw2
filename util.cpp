@@ -21,18 +21,25 @@ std::set<std::string> parseStringToWords(string rawWords)
 
     stringstream spaceParser(rawWords);
     while(spaceParser >> currentWord){
-        stringstream wordProcess(currentWord);
+        //cout << currentWord << endl;
         stringstream output;
-        char currentChar = tolower(wordProcess.get());
-        if(currentChar >= 'a' && currentChar <= 'z'){
-            output << currentChar;
-        }
-        else{
-            string word = output.str();
-            if(word.length() >= 2){
-                words.insert(word);
+        int start = 0;
+        for(int i = 0; i < currentWord.length(); i++){
+            currentWord[i] = tolower(currentWord[i]);
+            //cout << currentWord[i] << endl;
+            if(currentWord[i] < 'a' || currentWord[i] > 'z'){
+                if(i - start > 2){
+                    words.insert(currentWord.substr(start, i));
+                    cout << currentWord.substr(start, i) << endl;
+                    start = i + 1;
+                }
             }
         }
+        if(currentWord.length() - start > 2){
+            words.insert(currentWord.substr(start, currentWord.length()));
+            //cout << currentWord.substr(start, currentWord.length()) << endl;
+        }
+
     }
     return words;
 }

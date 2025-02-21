@@ -1,7 +1,7 @@
 #include <algorithm>
 #include <sstream>
 #include <iomanip>
-#include "book.h"
+#include "Book.h"
 #include "util.h"
 
 Book::Book(const std::string category, const std::string name, double price, int qty, std::string ISBN, std::string author) : Product(category, name, price, qty){
@@ -12,7 +12,7 @@ Book::Book(const std::string category, const std::string name, double price, int
 std::set<std::string> Book::keywords() const{
     std::set<std::string> name = parseStringToWords(name_);
     std::set<std::string> author = parseStringToWords(author_);
-    std::set<std::string> output = setIntersection(name, author);
+    std::set<std::string> output = setUnion(name, author);
     output.insert(ISBN_);
     
     return output;

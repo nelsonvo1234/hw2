@@ -16,6 +16,7 @@ class MyDataStore : public DataStore{
         void addCart(std::string username, Product* p);
         void viewCart(std::string username);
         void buyCart(std::string username);
+        ~MyDataStore();
     private:
         User* nameUser(std::string username);
         std::set<User*> users;

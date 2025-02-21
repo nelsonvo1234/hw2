@@ -12,14 +12,14 @@ Movie::Movie(const std::string category, const std::string name, double price, i
 std::set<std::string> Movie::keywords() const{
     std::set<std::string> name = parseStringToWords(name_);
     std::set<std::string> genre = parseStringToWords(genre_);
-    std::set<std::string> output = setIntersection(name, genre);    
+    std::set<std::string> output = setUnion(name, genre);    
     return output;
 }
 
 std::string Movie::displayString() const{
     std::stringstream out;
     out << name_ << std::endl;
-    out << "Genre: " << genre_ << " Raing: " << rating_ << std::endl;
+    out << "Genre: " << genre_ << " Rating: " << rating_ << std::endl;
     out << price_ << " " << qty_ << " left.";
     return out.str();
 }

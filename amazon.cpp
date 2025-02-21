@@ -101,11 +101,13 @@ int main(int argc, char* argv[])
                 done = true;
             }
 	    /* Add support for other commands here */
-            else if( cmd == "AND"){
+            else if( cmd == "ADD"){
                 string user;
                 int hitNum;
                 if(ss >> user && ss >> hitNum){
-                    ds.addCart(user, hits[hitNum]);
+                  // std::cout << hitNum << std::endl;
+                  // std::cout << hits[hitNum-1]->getName() << std::endl;
+                  ds.addCart(user, hits[hitNum-1]);
                 }
                 else{
                     cout << "Invalid request" << endl;
@@ -115,6 +117,7 @@ int main(int argc, char* argv[])
                 string user;
                 if(ss >> user){
                     ds.viewCart(user);
+
                 }
                 else{
                     cout << "Invalid username" << endl;

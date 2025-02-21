@@ -1,7 +1,7 @@
 #include <algorithm>
 #include <sstream>
 #include <iomanip>
-#include "clothing.h"
+#include "Clothing.h"
 #include "util.h"
 
 Clothing::Clothing(const std::string category, const std::string name, double price, int qty, std::string size, std::string brand) : Product(category, name, price, qty){
@@ -12,7 +12,7 @@ Clothing::Clothing(const std::string category, const std::string name, double pr
 std::set<std::string> Clothing::keywords() const{
     std::set<std::string> name = parseStringToWords(name_);
     std::set<std::string> brand = parseStringToWords(brand_);
-    std::set<std::string> output = setIntersection(name, brand);
+    std::set<std::string> output = setUnion(name, brand);
     return output;
 }
 
